@@ -1,0 +1,36 @@
+html,
+#root,
+#conatiner,
+body{
+  height: 95%;
+  background: #e0e0e0;
+}
+.title {
+  text-shadow: 0 0 10px #bebebe;
+  color: #202020;
+}
+.custom-nav {
+  background: #e0e0e0;
+  box-shadow:  0 0 20px #bebebe;
+}
+
+.my-nft-list {
+  /* box-shadow: inset 0 0 10px #bebebe;
+  border: medium none;   */
+
+  /* box-shadow: inset 0 0 10px #bebebe; */
+  border: 5px dashed #bebebe; 
+
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-top: 1rem; 
+  height: 20rem;
+}
+
+.dad-zone{
+  border: 5px dashed #bebebe; 
+  border-radius: 0.75rem;
+  height: 15rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}

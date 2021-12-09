@@ -1,0 +1,19 @@
+.input {
+    border: medium none;  
+    border-radius: 0.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    box-shadow: 0 0 10px #bebebe;
+
+    background: #e0e0e0;
+    color: #303030;
+    outline: none;
+}
+
+.input:focus {
+    box-shadow: inset 0 0 10px #bebebe;
+    color: #202020;
+    outline: none;
+} 
