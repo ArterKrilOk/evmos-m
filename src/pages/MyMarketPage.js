@@ -3,6 +3,7 @@ import React from "react";
 import Page from '../components/Page'
 import Button from '../components/Button'
 import MyNFTItemsList from '../components/MyNFTItemsList';
+import AllMyNFTItemsList from '../components/AllMyNFTItemsList';
 
 import AddTokenModule from "./AddToken.module";
 import MarketApi from "../client/MarketApi";
@@ -13,6 +14,17 @@ class MyMarketPage extends React.Component {
     state = {
         addTokenMode: false,
     }
+
+    componentDidMount() {
+
+    }
+
+    getFormatedAdress() {
+        if(this.marketApi.address == null)
+        return;
+        return '0x' + this.marketApi.address.substr(2).toUpperCase();
+    }
+
 
     toggleAddTokenMode = () => {
         this.setState({addTokenMode: !this.state.addTokenMode});
@@ -31,8 +43,7 @@ class MyMarketPage extends React.Component {
         return (
             <Page>
                 <div className="row">
-                    <h3 className="col-12">Welcome {this.marketApi.address}</h3>
-                    <h5 className="col-auto title">My Items</h5>
+                    <h4 className="col-auto title">On Sale</h4>
                     <Button
                         onClick={this.toggleAddTokenMode}
                         style={{marginLeft: 'auto', marginRight: '0.5rem'}}
@@ -40,6 +51,12 @@ class MyMarketPage extends React.Component {
                         Create Token
                     </Button>
                     <MyNFTItemsList
+                        className="col-12 my-nft-list" />
+                </div>
+
+                <div className="row" style={{marginTop: '3em'}}>
+                    <h4 className="col-12 title">My NFTs</h4>
+                    <AllMyNFTItemsList
                         className="col-12 my-nft-list" />
                 </div>
             </Page> 

@@ -15,9 +15,9 @@ class App extends React.Component {
           links={['/', '/market', '/mymarket']} />
         <div className="container" style={{height: "100%"}}>
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/market" element={<MarketPage />} />
-            <Route path="/mymarket" element={<MyMarketPage />} />
+            <Route path="/" element={<HomePage />}  exact={true} />
+            <Route path="/market" element={<MarketPage />}  exact={true} />
+            <Route path="/mymarket" element={<MyMarketPage />}  exact={true} />
           </Routes>
         </div>
       </div>

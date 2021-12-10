@@ -127,6 +127,10 @@ class AddTokenModule extends React.Component {
     }
 
     nextState = () => {
+        if(this.state.position == 1 && this.state.assetFile == "")
+            return;
+        if(this.state.position == 2 && (this.state.assetName == "" || this.state.assetDescr == "" || this.state.assetPrice == 0))
+            return;
         if(this.state.fileUploading)
             return;
         if(this.state.position < this.state.positions)
