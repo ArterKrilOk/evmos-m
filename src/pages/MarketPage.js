@@ -7,10 +7,15 @@ import MarketApi from "../client/MarketApi";
 
 
 class MarketPage extends React.Component {
+    constructor(props) {
+        super(props);
+      }
+
     marketApi = new MarketApi();
 
     state = {
         loading: false,
+        page: 0,
         items: []
     }
 
@@ -18,12 +23,21 @@ class MarketPage extends React.Component {
         this.loadMarketItems();
     }
 
+    componentWillMount(){
+        window.addEventListener('scroll', this.loadMore);
+    }
+      
+    componentWillUnmount(){
+        window.removeEventListener('scroll', this.loadMore);
+    }
+
     loadMarketItems = () => {
         if(this.state.loading)
             return;
 
         this.setState({loading: true});
-        this.marketApi.getMarketItems("", 0, 10)
+
+        this.marketApi.getMarketItems("", this.state.page, 20)
             .then( ( result ) => {
                 this.setState({items: this.state.items.concat(result)});
             })
@@ -31,11 +45,16 @@ class MarketPage extends React.Component {
                 
             })
             .finally( () => {
-                this.setState({loading: false});
+                this.setState({loading: false, page: this.state.page + 1});
+                
             });
     }
 
-    
+    loadMore = () => {
+        if (window.innerHeight + document.documentElement.scrollTop === document.scrollingElement.scrollHeight) {
+            this.loadMarketItems();
+        }
+    }
 
     render() {
         return (

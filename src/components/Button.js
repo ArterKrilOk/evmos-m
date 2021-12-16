@@ -3,6 +3,14 @@ import styles from "../styles/Button.module.css"
 
 class Button extends React.Component {
     render() {
+        if(this.props.disabled)
+            return (
+                <button
+                    style={this.props.style}
+                    className={`${styles.disabledBtn} ${this.props.className}`}>
+                    {this.props.children}
+                </button>
+            );
         return (
             <button
                 style={this.props.style}

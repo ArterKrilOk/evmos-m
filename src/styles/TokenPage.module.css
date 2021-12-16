@@ -1,0 +1,82 @@
+.centerCropped {
+    border-radius: 0.75rem !important;
+    background-size: cover;
+    width: 100%;
+    height: 13em;    
+    background-position: center center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.tokenImage {
+    border-radius: 0.75rem !important;
+    width: 75%;
+    background: #e0e0e0;
+    box-shadow: 0 0 20px #bebebe;
+    border: medium none;
+    -webkit-user-select: none;  
+  -moz-user-select: none;    
+  -ms-user-select: none;      
+  user-select: none;
+}
+
+.section{
+    box-shadow: 0 0 10px #bebebe;
+
+    border-radius: 0.75rem !important;
+    /* border: 5px solid #bebebe;  */
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    padding: 1.5em;
+    overflow: hidden;
+}
+
+.section a {
+    color: #202020;
+}
+
+.closedSection {
+    box-shadow: 0 0 10px #bebebe;
+
+    border-radius: 0.75rem !important;
+    /* border: 5px solid #bebebe;  */
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    padding-top: 1.5em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    padding-bottom: 1em;
+
+    -webkit-user-select: none;  
+  -moz-user-select: none;    
+  -ms-user-select: none;      
+  user-select: none;
+}
+
+.price {
+    margin-left: 1em;
+}
+
+.buyBtn {
+    min-width: 10em;
+}
+
+.bofferBtn {
+    min-width: 10em;
+    margin-left: 1em;
+}
+
+img::selection {
+    background: transparent;
+}
+
+.sellerAddress {
+     color: #202020;
+}
+
+.subText {
+    color: #9e9e9e;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 80%;
+}

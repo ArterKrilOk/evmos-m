@@ -9,6 +9,10 @@ import AddTokenModule from "./AddToken.module";
 import MarketApi from "../client/MarketApi";
 
 class MyMarketPage extends React.Component {
+    constructor(props) {
+        super(props);
+      }
+
     marketApi = new MarketApi();
 
     state = {

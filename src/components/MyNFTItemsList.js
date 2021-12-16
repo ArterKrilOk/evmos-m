@@ -4,6 +4,10 @@ import MarketApi from "../client/MarketApi";
 import NFTItemsList from "./NFTItemsList";
 
 class MyNFTItemsList extends React.Component {
+    constructor(props) {
+        super(props);
+      }
+
     marketApi = new MarketApi();
 
     state = {
@@ -20,7 +24,7 @@ class MyNFTItemsList extends React.Component {
         if(this.state.loading)
             return;
         this.setState({loading: true});
-        this.marketApi.getOnSaleItems(null, 0, 20)
+        this.marketApi.getOnSaleItems(this.marketApi.address, null, 0, 50)
             .then( ( result ) => this.setState({items: this.state.items.concat(result)}))
             .catch( ( error ) => this.setState({error: error}))
             .finally( () => this.setState({loading: false}));

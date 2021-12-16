@@ -16,7 +16,7 @@ class ProgressBar extends React.Component {
             );
         }
         return (
-            <div className={styles.container} style={{}}>
+            <div className={styles.container} style={this.props.style}>
                 <div className={styles.loader}>
                     <span></span>
                     <span></span>

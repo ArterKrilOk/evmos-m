@@ -4,8 +4,13 @@ import {isMobile} from 'react-device-detect';
 
 import { NavLink } from "react-router-dom";
 import MetamaskBtn from "./MetamaskBtn";
+import Center from "./Center";
 
 class NavBar extends React.Component {
+    constructor(props) {
+        super(props);
+      }
+
     state = {
         expand: false,
         walletConnected: false,
@@ -51,10 +56,12 @@ class NavBar extends React.Component {
                                     );
                                 }
                             )}    
-                            <MetamaskBtn
-                                onConnect={this.onConnect}
-                                onDisconnect={this.onDisconnect}
-                                style={{marginLeft: 'auto', width: '15em'}} />
+                            <Center horizontal={true}>
+                                <MetamaskBtn
+                                    onConnect={this.onConnect}
+                                    onDisconnect={this.onDisconnect}
+                                    style={{marginLeft: 'auto', width: '15em'}} />
+                            </Center> 
                         </div> : <></>
                     }
                 </nav>

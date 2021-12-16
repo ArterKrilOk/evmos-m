@@ -6,8 +6,11 @@ import Center from '../components/Center'
 import { Link } from "react-router-dom";
 
 
+
 class NFTItem extends React.Component {
-    
+    constructor(props) {
+        super(props);
+      }
 
     componentDidMount() {
 
@@ -25,10 +28,10 @@ class NFTItem extends React.Component {
         return (
             
             <div className={`col-sm-12 col-md-4 col-xl-3 ${styles.nftItemContainer}`} style={this.props.style}>
-                {/* <Link to={{
-                    pathname: '/token/'+ this.props.nft.tokenId,
+                <Link to={{
+                    pathname: '/token/'+ this.props.nft.itemId,
                     state: { nft: this.props.nft }
-                    }}> */}
+                    }}>
                     <div className={`card ${styles.nftItem}`} onClick={this.props.onClick}>
                         <div className={`card-img-top ${styles.centerCropped}`} style={{backgroundImage: 'url(' + this.props.nft.image + ')'}}>
                         </div>
@@ -41,9 +44,9 @@ class NFTItem extends React.Component {
                                     Image load failed!
                                 </Center>
                         </ImageLoader> */}
-                        <div class="card-img-overlay" style={{padding: '0'}}>
+                        <div className="card-img-overlay" style={{padding: '0'}}>
                             <div style={{height: '9em'}}></div>
-                            <h5 class={styles.nftTitle}>{this.props.nft.name}</h5>
+                            <h5 className={styles.nftTitle}>{this.props.nft.name}</h5>
                             {/* <div>{this.getCorrectPrice()} PHOTON</div> */}
                         </div>
 
@@ -53,7 +56,7 @@ class NFTItem extends React.Component {
                             
                         {/* </div> */}
                     </div>
-                {/* </Link> */}
+                </Link>
             </div>
             
         );

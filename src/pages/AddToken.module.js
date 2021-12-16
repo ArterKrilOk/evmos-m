@@ -25,6 +25,10 @@ const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
 
 class AddTokenModule extends React.Component {
+    constructor(props) {
+        super(props);
+      }
+
     minPrice = 0.000001;
 
     state = {

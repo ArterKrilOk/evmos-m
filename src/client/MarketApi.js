@@ -26,18 +26,27 @@ class MarketApi {
         return this;
     }
 
+    getEquivalentPrice = (price) => {
+        return '0.00$';
+    }
+
     buyToken = (nft) => {
         return new Promise( async ( resolve, reject ) => {
-            const web3Modal = new Web3Modal()
-            const connection = await web3Modal.connect()
-            const provider = new ethers.providers.Web3Provider(connection)
-            const signer = provider.getSigner()
-            const contract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
-        
-            const price = ethers.utils.parseUnits(nft.price.toString(), 'ether')
-            const transaction = await contract.createMarketSale(nft.tokenId, {value: price});
-            await transaction.wait();
-            resolve();
+            console.log("Starting buy");
+            let price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
+
+            try {
+                let transaction = await this.marketContract.createMarketSale(nft.itemId, {value: price});
+                let tx = await transaction.wait();
+                console.log("Tx: ", tx);
+                if(tx != null)
+                    resolve();
+                else
+                    reject();
+            } catch (err) {
+                reject(err);
+            }
+            reject();
         });
     }
 
@@ -89,6 +98,16 @@ class MarketApi {
         
     }
 
+    getMarketItem = (itemId) => {
+        return new Promise( async (resolve, reject ) => {
+            var data = await this.marketContract.GetMarketItemById(itemId);
+
+            var token = await this.getItem(data[0]);
+
+            resolve(token);
+        });
+    }
+
 
     connectToWallet = () => {
         return new Promise( async ( resolve, reject ) => {
@@ -100,11 +119,10 @@ class MarketApi {
             this.provider = new ethers.providers.Web3Provider(connection)
             const signer = this.provider.getSigner();
 
-            // console.log(this.provider);
 
             if(connection != null) {
                 this.marketContract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
-                this.tokenContract = new ethers.Contract(nftaddress, NFT.abi, this.provider)
+                this.tokenContract = new ethers.Contract(nftaddress, NFT.abi, signer)
                 this.address = connection.selectedAddress;
                 resolve(connection.selectedAddress);
             } else 
@@ -116,27 +134,30 @@ class MarketApi {
         });
     }
 
-    fetchItems = async (data) => {
-        return await Promise.all(data.map(async i => {
-            const tokenUri = await this.tokenContract.tokenURI(i.tokenId)
-            const meta = await axios.get(tokenUri)
-            let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
+    getItem = async (i) => {
+        const tokenUri = await this.tokenContract.tokenURI(i.tokenId)
+        const meta = await axios.get(tokenUri)
+        let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
 
-            let item = {
-                price, 
-                tokenId: i.tokenId.toNumber(),
-                seller: i.seller,
-                url: tokenUri,
-                image: meta.data.image,
-                name: meta.data.name,
-                description: meta.data.description,
-            }
-            return item;
-        }));
+        let item = {
+            price, 
+            itemId: i.itemId.toNumber(),
+            tokenId: i.tokenId.toNumber(),
+            seller: i.seller,
+            url: tokenUri,
+            image: meta.data.image,
+            name: meta.data.name,
+            description: meta.data.description,
+        }
+        return item;
+    }
+
+    fetchItems = async (data) => {
+        return await Promise.all(data.map(async i => this.getItem(i)));
     }
 
     
-    getOnSaleItems = (query, page, limit) => { 
+    getOnSaleItems = (address, query, page, limit) => { 
         return new Promise( async (resolve, reject) => {
             // const web3Modal = new Web3Modal({
             //     network: "mainnet",
@@ -149,12 +170,11 @@ class MarketApi {
             // const marketContract1 = new ethers.Contract(nftmarketaddress, Market.abi, signer)
             // const tokenContract1 = new ethers.Contract(nftaddress, NFT.abi, provider1)
             
-            if(this.address == null) {
+            if(address == null) {
                 reject();
                 return;
             }
-            const data = await this.marketContract.GetUserOnSaleItems(page, limit, 0, this.address);
-            // console.log(data);
+            const data = await this.marketContract.GetUserOnSaleItems(page, limit, 0, address);
 
             resolve(this.fetchItems(data));
         });
@@ -163,7 +183,6 @@ class MarketApi {
     getMarketItems = (query, page, limit) => { 
         return new Promise( async (resolve, reject) => {
             const data = await this.marketContract.GetMarketItems("", page, limit, 0);
-            //console.log(data);
             resolve(this.fetchItems(data));
         });
     }

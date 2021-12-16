@@ -8,6 +8,10 @@ import Button from '../components/Button'
 import roadmap from './roadmap.png'; // with import
 
 class HomePage extends React.Component {
+    constructor(props) {
+        super(props);
+      }
+
     render() {
         return (
             <Page>
